@@ -1,11 +1,14 @@
 {% extends "base.html" %}
-{% block list_of_task %}
+
+{% block all %}
+
 {% for task in tasks %}
 
 <div class="card mt-3">
     <div class="card-header">
         {{ task.title }} {% if task.is_done %}<span class="badge badge-success">Выполнено</span>{% else %}<span
-            class="badge badge-warning">Не выполнено</span>{% endif %}
+            class="badge badge-warning">Не
+            выполнено</span>{% endif %}
     </div>
     <div class="card-body">
         <h5 class="card-title">#{{ task.id }} -- {{ task.title }}</h5>
@@ -33,9 +36,9 @@
                     <div class="form-group">
                         {% csrf_token %}
                         <label for="title">Новое название</label>
-                        <input type="text" name="title" class="form-control" value="{{ task.title }}">
+                        <input type="text" name="title" class="form-control" value="{{ task.title }}" required>
                         <label for="desc">Новое описание</label>
-                        <textarea class="form-control mt-2" name="desc">{{ task.desc }}</textarea>
+                        <textarea class="form-control mt-2" name="desc" required>{{ task.desc }}</textarea>
                         <input class="form-check-input ml-0" type="checkbox" name="is_done" {% if task.is_done %}
                             checked{% endif %}>
                         <label class="form-check-label ml-3" for="is_done">
@@ -58,139 +61,130 @@
         </div>
     </div>
 </div>
-{% endfor %}
+{% endfor %}{% endblock %}
 
-
-
-</div>
-{% endblock %}
-
-{% block list_of_dones %}
+{% block dones %}
 
 {% for task in dones %}
 
-                    <div class="card mt-3">
-                        <div class="card-header">
-                            {{ task.title }}
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">#{{ task.id }} -- {{ task.title }}</h5>
-                            <p class="card-text">{{ task.desc }}</p>
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-info" data-toggle="modal"
-                                    data-target="#modal_task{{ task.id }}u">Редактировать</button>
+<div class="card mt-3">
+    <div class="card-header">
+        {{ task.title }}
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">#{{ task.id }} -- {{ task.title }}</h5>
+        <p class="card-text">{{ task.desc }}</p>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-info" data-toggle="modal"
+                data-target="#modal_task{{ task.id }}u">Редактировать</button>
 
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Modal for dones-->
-                    <div class="modal fade" id="modal_task{{ task.id }}u" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Редактирование задания</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <form method="POST">
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            {% csrf_token %}
-                                            <label for="title">Новое название</label>
-                                            <input type="text" name="title" class="form-control"
-                                                value="{{ task.title }}">
-                                            <label for="desc">Новое описание</label>
-                                            <textarea class="form-control mt-2" name="desc">{{ task.desc }}</textarea>
-                                            <input class="form-check-input ml-0" type="checkbox" name="is_done"
-                                                {% if task.is_done %} checked{% endif %}>
-                                            <label class="form-check-label ml-3" for="is_done">
-                                                Выполнено
-                                            </label>
-                                            <input class="form-check-input ml-0" type="checkbox" name="delete">
-                                            <label class="form-check-label ml-3" for="delete">
-                                                Я хочу просто удалить вот это вот все.
-                                            </label>
-                                            <input type="id" name="id" class="form-control invisible"
-                                                value="{{ task.id }}">
-                                            <div class="modal-footer">
-                                                <input type="submit" value="Спаси и сохрани" class="btn btn-primary">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">Передумал</button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </form>
-
-                            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal for dones-->
+<div class="modal fade" id="modal_task{{ task.id }}u" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Редактирование задания</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST">
+                <div class="modal-body">
+                    <div class="form-group">
+                        {% csrf_token %}
+                        <label for="title">Новое название</label>
+                        <input type="text" name="title" class="form-control" value="{{ task.title }}" required>
+                        <label for="desc">Новое описание</label>
+                        <textarea class="form-control mt-2" name="desc" required>{{ task.desc }}</textarea>
+                        <input class="form-check-input ml-0" type="checkbox" name="is_done" {% if task.is_done %}
+                            checked{% endif %}>
+                        <label class="form-check-label ml-3" for="is_done">
+                            Выполнено
+                        </label>
+                        <input class="form-check-input ml-0" type="checkbox" name="delete">
+                        <label class="form-check-label ml-3" for="delete">
+                            Я хочу просто удалить вот это вот все.
+                        </label>
+                        <input type="id" name="id" class="form-control invisible" value="{{ task.id }}">
+                        <div class="modal-footer">
+                            <input type="submit" value="Спаси и сохрани" class="btn btn-primary">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Передумал</button>
                         </div>
                     </div>
-                    {% endfor %}
 
                 </div>
-{% endblock %}
-{% block list_of_not_dones %}
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endfor %}{% endblock %}
+
+{% block not_dones %}
+
 {% for task in not_dones %}
 
-                    <div class="card mt-3">
-                        <div class="card-header">
-                            {{ task.title }}
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">#{{ task.id }} -- {{ task.title }}</h5>
-                            <p class="card-text">{{ task.desc }}</p>
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-info" data-toggle="modal"
-                                    data-target="#modal_task{{ task.id }}u">Редактировать</button>
+<div class="card mt-3">
+    <div class="card-header">
+        {{ task.title }}
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">#{{ task.id }} -- {{ task.title }}</h5>
+        <p class="card-text">{{ task.desc }}</p>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-info" data-toggle="modal"
+                data-target="#modal_task{{ task.id }}u">Редактировать</button>
 
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Modal for not_dones-->
-                    <div class="modal fade" id="modal_task{{ task.id }}u" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Редактирование задания</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <form method="POST">
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            {% csrf_token %}
-                                            <label for="title">Новое название</label>
-                                            <input type="text" name="title" class="form-control"
-                                                value="{{ task.title }}">
-                                            <label for="desc">Новое описание</label>
-                                            <textarea class="form-control mt-2" name="desc">{{ task.desc }}</textarea>
-                                            <input class="form-check-input ml-0" type="checkbox" name="is_done"
-                                                {% if task.is_done %} checked{% endif %}>
-                                            <label class="form-check-label ml-3" for="is_done">
-                                                Выполнено
-                                            </label>
-                                            <input class="form-check-input ml-0" type="checkbox" name="delete">
-                                            <label class="form-check-label ml-3" for="delete">
-                                                Я хочу просто удалить вот это вот все.
-                                            </label>
-                                            <input type="id" name="id" class="form-control invisible"
-                                                value="{{ task.id }}">
-                                            <div class="modal-footer">
-                                                <input type="submit" value="Спаси и сохрани" class="btn btn-primary">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">Передумал</button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </form>
-
-                            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal for not_dones-->
+<div class="modal fade" id="modal_task{{ task.id }}u" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Редактирование задания</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST">
+                <div class="modal-body">
+                    <div class="form-group">
+                        {% csrf_token %}
+                        <label for="title">Новое название</label>
+                        <input type="text" name="title" class="form-control" value="{{ task.title }}" required>
+                        <label for="desc">Новое описание</label>
+                        <textarea class="form-control mt-2" name="desc" required>{{ task.desc }}</textarea>
+                        <input class="form-check-input ml-0" type="checkbox" name="is_done"
+                            {% if task.is_done %} checked{% endif %}>
+                        <label class="form-check-label ml-3" for="is_done">
+                            Выполнено
+                        </label>
+                        <input class="form-check-input ml-0" type="checkbox" name="delete">
+                        <label class="form-check-label ml-3" for="delete">
+                            Я хочу просто удалить вот это вот все.
+                        </label>
+                        <input type="id" name="id" class="form-control invisible" value="{{ task.id }}">
+                        <div class="modal-footer">
+                            <input type="submit" value="Спаси и сохрани" class="btn btn-primary">
+                            <button type="button" class="btn btn-secondary"
+                                data-dismiss="modal">Передумал</button>
                         </div>
                     </div>
-                    {% endfor %}
-{% endblock %}
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endfor %}{% endblock %}
+
+
+

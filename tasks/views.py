@@ -28,7 +28,7 @@ def task_list(request):
             if ("delete" in request.POST):
                 delete_task = Task.objects.get(pk=id)
                 delete_task.delete()
-                return render(request, 'index.html_5', {'tasks': tasks, 'dones': dones, 'not_dones': not_dones, 'form_for_create': form_for_create})
+                return render(request, 'index_5.html', {'tasks': tasks, 'dones': dones, 'not_dones': not_dones, 'form_for_create': form_for_create})
             edit_task = Task.objects.get(pk=id)
             edit_task.title = new_title
             edit_task.desc = new_desc
@@ -38,5 +38,5 @@ def task_list(request):
                 edit_task.is_done = False    
             edit_task.save()
 
-        return render(request, 'index.html_5', {'tasks': tasks, 'dones': dones, 'not_dones': not_dones, 'form_for_create': form_for_create})
+        return render(request, 'index_5.html', {'tasks': tasks, 'dones': dones, 'not_dones': not_dones, 'form_for_create': form_for_create})
     
