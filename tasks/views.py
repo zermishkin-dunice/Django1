@@ -5,12 +5,6 @@ from django.views.generic import TemplateView
 
 
 class AboutView(TemplateView):
-    template_name = "index_5.html"
-    tasks = Task.objects.all()
-    dones = Task.objects.filter(is_done=True)
-    not_dones = Task.objects.filter(is_done=False)
-    form_for_create = TaskForm()
-    
     def update_data(self):
         self.tasks = Task.objects.all()
         self.dones = Task.objects.filter(is_done=True)
@@ -36,7 +30,6 @@ class AboutView(TemplateView):
                 delete_task = Task.objects.get(pk=id)
                 delete_task.delete()
                 return redirect('task_list')
-            
             edit_task = Task.objects.get(pk=id)
             edit_task.title = new_title
             edit_task.desc = new_desc
