@@ -21,9 +21,11 @@ class AboutView(TemplateView):
         new_title = request.POST.get("title")
         new_desc = request.POST.get("desc")
         id = request.POST.get("id")
-        print(new_title, new_desc)
         if (id == None):
-            Task.objects.create(title=new_title, desc=new_desc)
+            #Task.objects.create(title=new_title, desc=new_desc)
+            form = TaskForm(data=request.POST)
+            if form.is_valid():
+                form.save()
             return redirect('task_list')
         else:
             if ("delete" in request.POST):
@@ -31,11 +33,6 @@ class AboutView(TemplateView):
                 delete_task.delete()
                 return redirect('task_list')
             edit_task = Task.objects.get(pk=id)
-            edit_task.title = new_title
-            edit_task.desc = new_desc
-            if ("is_done" in request.POST):
-                edit_task.is_done = True
-            else:
-                edit_task.is_done = False
-            edit_task.save()
+            form = TaskForm(data=request.POST, instance=edit_task)
+            form.save()
             return redirect('task_list')
