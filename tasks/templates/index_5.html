@@ -143,8 +143,8 @@
     </div>
 </div>
 <!-- Modal for not_dones-->
-<div class="modal fade" id="modal_task{{ task.id }}u" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_task{{ task.id }}u" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -161,8 +161,8 @@
                         <input type="text" name="title" class="form-control" value="{{ task.title }}" required>
                         <label for="desc">Новое описание</label>
                         <textarea class="form-control mt-2" name="desc" required>{{ task.desc }}</textarea>
-                        <input class="form-check-input ml-0" type="checkbox" name="is_done"
-                            {% if task.is_done %} checked{% endif %}>
+                        <input class="form-check-input ml-0" type="checkbox" name="is_done" {% if task.is_done %}
+                            checked{% endif %}>
                         <label class="form-check-label ml-3" for="is_done">
                             Выполнено
                         </label>
@@ -173,8 +173,7 @@
                         <input type="id" name="id" class="form-control invisible" value="{{ task.id }}">
                         <div class="modal-footer">
                             <input type="submit" value="Спаси и сохрани" class="btn btn-primary">
-                            <button type="button" class="btn btn-secondary"
-                                data-dismiss="modal">Передумал</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Передумал</button>
                         </div>
                     </div>
 
@@ -185,6 +184,3 @@
     </div>
 </div>
 {% endfor %}{% endblock %}
-
-
-
