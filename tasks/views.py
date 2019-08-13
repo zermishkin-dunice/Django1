@@ -25,7 +25,6 @@ class AboutView(TemplateView):
             form = TaskForm(data=request.POST)
             if form.is_valid():
                 form.save()
-                
             return redirect('task_list')
         else:
             if ("delete" in request.POST):
@@ -34,5 +33,6 @@ class AboutView(TemplateView):
                 return redirect('task_list')
             edit_task = Task.objects.get(pk=id)
             form = TaskForm(data=request.POST, instance=edit_task)
+            print(request.POST)
             form.save()
             return redirect('task_list')
