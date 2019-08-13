@@ -14,4 +14,3 @@ class TaskForm(forms.ModelForm):
         self.fields['desc'].widget.attrs.update({'class': 'form-control'})
         self.fields['desc'].label = 'Описание таска'
         self.fields['is_done'].label = 'Выполнено'
-

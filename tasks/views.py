@@ -18,8 +18,6 @@ class AboutView(TemplateView):
 
     def post(self, request):
         self.update_data()
-        new_title = request.POST.get("title")
-        new_desc = request.POST.get("desc")
         id = request.POST.get("id")
         if (id == None):
             form = TaskForm(data=request.POST)
@@ -33,6 +31,5 @@ class AboutView(TemplateView):
                 return redirect('task_list')
             edit_task = Task.objects.get(pk=id)
             form = TaskForm(data=request.POST, instance=edit_task)
-            print(request.POST)
             form.save()
             return redirect('task_list')
