@@ -22,10 +22,10 @@ class AboutView(TemplateView):
         new_desc = request.POST.get("desc")
         id = request.POST.get("id")
         if (id == None):
-            #Task.objects.create(title=new_title, desc=new_desc)
             form = TaskForm(data=request.POST)
             if form.is_valid():
                 form.save()
+                
             return redirect('task_list')
         else:
             if ("delete" in request.POST):

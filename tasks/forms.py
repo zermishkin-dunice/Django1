@@ -8,7 +8,7 @@ class TaskForm(forms.ModelForm):
         fields = ('title', 'desc', 'id')
 
     def __init__(self, *args, **kwargs):
-        super(TaskForm, self).__init__()
+        super(TaskForm, self).__init__(*args, **kwargs)  #Arguments must be set, because without them the form does not work
         self.fields['title'].widget.attrs.update({'class': 'form-control'})
         self.fields['title'].label = 'Название таска'
         self.fields['desc'].widget.attrs.update({'class': 'form-control'})
