@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
-from .models import Task
-from .forms import TaskForm
+from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
+
+from .forms import TaskForm
+from .models import Task
 
 
 class AboutView(TemplateView):
@@ -13,8 +14,10 @@ class AboutView(TemplateView):
 
     def get(self, request):
         self.update_data()
-        return render(request, 'index_5.html', {'tasks': self.tasks, 'dones': self.dones,
-                                                'not_dones': self.not_dones, 'form_for_create': self.form_for_create})
+        return render(request, 'index_5.html', {'tasks': self.tasks,
+                                                'dones': self.dones,
+                                                'not_dones': self.not_dones,
+                                                'form_for_create': self.form_for_create})
 
     def post(self, request):
         self.update_data()
